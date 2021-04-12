@@ -1,0 +1,7 @@
+set(NOISE_VERSION @libnoise_VERSION@)
+
+@PACKAGE_INIT@
+
+set_and_check(NOISE_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+check_required_components(Noise)
