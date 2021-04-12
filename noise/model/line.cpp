@@ -19,47 +19,53 @@
 
 #include "noise/model/line.h"
 
-using namespace noise;
-using namespace noise::model;
+namespace noise {
 
-Line::Line ():
+namespace model {
 
-  m_attenuate (true),
-  m_pModule (NULL),
-  m_x0 (0.0),
-  m_x1 (1.0),
-  m_y0 (0.0),
-  m_y1 (1.0),
-  m_z0 (0.0),
-  m_z1 (1.0)
+Line::Line()
+    : m_attenuate(true)
+    , m_pModule(NULL)
+    , m_x0(0.0)
+    , m_x1(1.0)
+    , m_y0(0.0)
+    , m_y1(1.0)
+    , m_z0(0.0)
+    , m_z1(1.0)
 {
 }
 
-Line::Line (const module::Module& module):
-
-  m_attenuate (true),
-  m_pModule (&module),
-  m_x0 (0.0),
-  m_x1 (1.0),
-  m_y0 (0.0),
-  m_y1 (1.0),
-  m_z0 (0.0),
-  m_z1 (1.0)
+Line::Line(const module::Module& module)
+    : m_attenuate(true)
+    , m_pModule(&module)
+    , m_x0(0.0)
+    , m_x1(1.0)
+    , m_y0(0.0)
+    , m_y1(1.0)
+    , m_z0(0.0)
+    , m_z1(1.0)
 {
 }
 
-double Line::GetValue (double p) const
+double Line::GetValue(double p) const
 {
-  assert (m_pModule != NULL);
+    assert(m_pModule != NULL);
 
-  double x = (m_x1 - m_x0) * p + m_x0;
-  double y = (m_y1 - m_y0) * p + m_y0;
-  double z = (m_z1 - m_z0) * p + m_z0;
-  double value = m_pModule->GetValue (x, y, z);
+    double x = (m_x1 - m_x0) * p + m_x0;
+    double y = (m_y1 - m_y0) * p + m_y0;
+    double z = (m_z1 - m_z0) * p + m_z0;
+    double value = m_pModule->GetValue(x, y, z);
 
-  if (m_attenuate) {
-    return p * (1.0 - p) * 4 * value;
-  } else {
-    return value;
-  }
+    if (m_attenuate)
+    {
+        return p * (1.0 - p) * 4 * value;
+    }
+    else
+    {
+        return value;
+    }
 }
+
+} // namespace model
+
+} // namespace noise

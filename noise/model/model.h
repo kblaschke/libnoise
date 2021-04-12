@@ -20,12 +20,9 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_MODEL_H
-#define NOISE_MODEL_H
+#pragma once
 
 #include "noise/model/cylinder.h"
 #include "noise/model/line.h"
 #include "noise/model/plane.h"
 #include "noise/model/sphere.h"
-
-#endif

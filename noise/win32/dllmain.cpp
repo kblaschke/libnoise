@@ -22,7 +22,12 @@
 
 #include <windows.h>
 
-BOOL WINAPI DllMain (HINSTANCE hInst, ULONG reason, LPVOID lpReserved)
+BOOL WINAPI
+DllMain (HINSTANCE
+hInst,
+ULONG reason, LPVOID
+lpReserved)
 {
-  return TRUE;
+return
+TRUE;
 }

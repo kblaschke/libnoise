@@ -22,18 +22,24 @@
 
 #include "noise/module/multiply.h"
 
-using namespace noise::module;
+namespace noise {
 
-Multiply::Multiply ():
-  Module (GetSourceModuleCount ())
+namespace module {
+
+Multiply::Multiply()
+    : Module(GetSourceModuleCount())
 {
 }
 
-double Multiply::GetValue (double x, double y, double z) const
+double Multiply::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
-  assert (m_pSourceModule[1] != NULL);
+    assert(m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[1] != NULL);
 
-  return m_pSourceModule[0]->GetValue (x, y, z)
-       * m_pSourceModule[1]->GetValue (x, y, z);
+    return m_pSourceModule[0]->GetValue(x, y, z)
+           * m_pSourceModule[1]->GetValue(x, y, z);
 }
+
+} // namespace module
+
+} // namespace noise

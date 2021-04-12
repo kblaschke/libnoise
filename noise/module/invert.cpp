@@ -22,16 +22,22 @@
 
 #include "noise/module/invert.h"
 
-using namespace noise::module;
+namespace noise {
 
-Invert::Invert ():
-  Module (GetSourceModuleCount ())
+namespace module {
+
+Invert::Invert()
+    : Module(GetSourceModuleCount())
 {
 }
 
-double Invert::GetValue (double x, double y, double z) const
+double Invert::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[0] != NULL);
 
-  return -(m_pSourceModule[0]->GetValue (x, y, z));
+    return -(m_pSourceModule[0]->GetValue(x, y, z));
 }
+
+} // namespace module
+
+} // namespace noise

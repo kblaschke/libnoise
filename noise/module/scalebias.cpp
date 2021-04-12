@@ -22,18 +22,24 @@
 
 #include "noise/module/scalebias.h"
 
-using namespace noise::module;
+namespace noise {
 
-ScaleBias::ScaleBias ():
-  Module (GetSourceModuleCount ()),
-  m_bias  (DEFAULT_BIAS ),
-  m_scale (DEFAULT_SCALE)
+namespace module {
+
+ScaleBias::ScaleBias()
+    : Module(GetSourceModuleCount())
+    , m_bias(DEFAULT_BIAS)
+    , m_scale(DEFAULT_SCALE)
 {
 }
 
-double ScaleBias::GetValue (double x, double y, double z) const
+double ScaleBias::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[0] != NULL);
 
-  return m_pSourceModule[0]->GetValue (x, y, z) * m_scale + m_bias;
+    return m_pSourceModule[0]->GetValue(x, y, z) * m_scale + m_bias;
 }
+
+} // namespace module
+
+} // namespace noise

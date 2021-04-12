@@ -19,62 +19,57 @@
 // The developer's email is angstrom@lionsanctuary.net
 //
 
-#ifndef NOISE_MODULE_POWER_H
-#define NOISE_MODULE_POWER_H
+#pragma once
 
 #include "noise/module/modulebase.h"
 
-namespace noise
+namespace noise {
+
+namespace module {
+
+/// @addtogroup libnoise
+/// @{
+
+/// @addtogroup modules
+/// @{
+
+/// @defgroup combinermodules Combiner Modules
+/// @addtogroup combinermodules
+/// @{
+
+/// Noise module that raises the output value from a first source module
+/// to the power of the output value from a second source module.
+///
+/// @image html modulepower.png
+///
+/// The first source module must have an index value of 0.
+///
+/// The second source module must have an index value of 1.
+///
+/// This noise module requires two source modules.
+class Power : public Module
 {
 
-  namespace module
-  {
+public:
 
-    /// @addtogroup libnoise
-    /// @{
+    /// Constructor.
+    Power();
 
-    /// @addtogroup modules
-    /// @{
-
-    /// @defgroup combinermodules Combiner Modules
-    /// @addtogroup combinermodules
-    /// @{
-
-    /// Noise module that raises the output value from a first source module
-    /// to the power of the output value from a second source module.
-    ///
-    /// @image html modulepower.png
-    ///
-    /// The first source module must have an index value of 0.
-    ///
-    /// The second source module must have an index value of 1.
-    ///
-    /// This noise module requires two source modules.
-    class Power: public Module
+    virtual int GetSourceModuleCount() const
     {
+        return 2;
+    }
 
-      public:
+    virtual double GetValue(double x, double y, double z) const;
 
-        /// Constructor.
-        Power ();
+};
 
-        virtual int GetSourceModuleCount () const
-        {
-          return 2;
-        }
+/// @}
 
-        virtual double GetValue (double x, double y, double z) const;
+/// @}
 
-    };
+/// @}
 
-    /// @}
+} // namespace module
 
-    /// @}
-
-    /// @}
-
-  }
-
-}
-
-#endif
+} // namespace noise

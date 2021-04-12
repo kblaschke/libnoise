@@ -22,17 +22,23 @@
 
 #include "noise/module/checkerboard.h"
 
-using namespace noise::module;
+namespace noise {
 
-Checkerboard::Checkerboard ():
-  Module (GetSourceModuleCount ())
+namespace module {
+
+Checkerboard::Checkerboard()
+    : Module(GetSourceModuleCount())
 {
 }
 
-double Checkerboard::GetValue (double x, double y, double z) const
+double Checkerboard::GetValue(double x, double y, double z) const
 {
-  int ix = (int)(floor (MakeInt32Range (x)));
-  int iy = (int)(floor (MakeInt32Range (y)));
-  int iz = (int)(floor (MakeInt32Range (z)));
-  return (ix & 1 ^ iy & 1 ^ iz & 1)? -1.0: 1.0;
+    int ix = (int) (floor(MakeInt32Range(x)));
+    int iy = (int) (floor(MakeInt32Range(y)));
+    int iz = (int) (floor(MakeInt32Range(z)));
+    return (ix & 1 ^ iy & 1 ^ iz & 1) ? -1.0 : 1.0;
 }
+
+} // namespace module
+
+} // namespace noise

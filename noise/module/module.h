@@ -20,8 +20,7 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_MODULE_H
-#define NOISE_MODULE_H
+#pragma once
 
 #include "noise/module/add.h"
 #include "noise/module/abs.h"
@@ -51,5 +50,3 @@
 #include "noise/module/translatepoint.h"
 #include "noise/module/turbulence.h"
 #include "noise/module/voronoi.h"
-
-#endif

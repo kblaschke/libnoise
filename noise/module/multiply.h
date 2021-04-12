@@ -20,57 +20,52 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_MODULE_MULTIPLY_H
-#define NOISE_MODULE_MULTIPLY_H
+#pragma once
 
 #include "noise/module/modulebase.h"
 
-namespace noise
+namespace noise {
+
+namespace module {
+
+/// @addtogroup libnoise
+/// @{
+
+/// @addtogroup modules
+/// @{
+
+/// @addtogroup combinermodules
+/// @{
+
+/// Noise module that outputs the product of the two output values from
+/// two source modules.
+///
+/// @image html modulemultiply.png
+///
+/// This noise module requires two source modules.
+class Multiply : public Module
 {
 
-  namespace module
-  {
+public:
 
-    /// @addtogroup libnoise
-    /// @{
+    /// Constructor.
+    Multiply();
 
-    /// @addtogroup modules
-    /// @{
-
-    /// @addtogroup combinermodules
-    /// @{
-
-    /// Noise module that outputs the product of the two output values from
-    /// two source modules.
-    ///
-    /// @image html modulemultiply.png
-    ///
-    /// This noise module requires two source modules.
-    class Multiply: public Module
+    virtual int GetSourceModuleCount() const
     {
+        return 2;
+    }
 
-      public:
+    virtual double GetValue(double x, double y, double z) const;
 
-        /// Constructor.
-        Multiply ();
+};
 
-        virtual int GetSourceModuleCount () const
-        {
-          return 2;
-        }
+/// @}
 
-        virtual double GetValue (double x, double y, double z) const;
+/// @}
 
-    };
+/// @}
 
-    /// @}
+} // namespace module
 
-    /// @}
-
-    /// @}
-
-  }
-
-}
-
-#endif
+} // namespace noise

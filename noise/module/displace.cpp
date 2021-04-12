@@ -22,27 +22,33 @@
 
 #include "noise/module/displace.h"
 
-using namespace noise::module;
+namespace noise {
 
-Displace::Displace ():
-  Module (GetSourceModuleCount ())
+namespace module {
+
+Displace::Displace()
+    : Module(GetSourceModuleCount())
 {
 }
 
-double Displace::GetValue (double x, double y, double z) const
+double Displace::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
-  assert (m_pSourceModule[1] != NULL);
-  assert (m_pSourceModule[2] != NULL);
-  assert (m_pSourceModule[3] != NULL);
+    assert(m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[1] != NULL);
+    assert(m_pSourceModule[2] != NULL);
+    assert(m_pSourceModule[3] != NULL);
 
-  // Get the output values from the three displacement modules.  Add each
-  // value to the corresponding coordinate in the input value.
-  double xDisplace = x + (m_pSourceModule[1]->GetValue (x, y, z));
-  double yDisplace = y + (m_pSourceModule[2]->GetValue (x, y, z));
-  double zDisplace = z + (m_pSourceModule[3]->GetValue (x, y, z));
+    // Get the output values from the three displacement modules.  Add each
+    // value to the corresponding coordinate in the input value.
+    double xDisplace = x + (m_pSourceModule[1]->GetValue(x, y, z));
+    double yDisplace = y + (m_pSourceModule[2]->GetValue(x, y, z));
+    double zDisplace = z + (m_pSourceModule[3]->GetValue(x, y, z));
 
-  // Retrieve the output value using the offsetted input value instead of
-  // the original input value.
-  return m_pSourceModule[0]->GetValue (xDisplace, yDisplace, zDisplace);
+    // Retrieve the output value using the offsetted input value instead of
+    // the original input value.
+    return m_pSourceModule[0]->GetValue(xDisplace, yDisplace, zDisplace);
 }
+
+} // namespace module
+
+} // namespace noise

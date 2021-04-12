@@ -22,10 +22,16 @@
 
 #include "noise/module/const.h"
 
-using namespace noise::module;
+namespace noise {
 
-Const::Const ():
-  Module (GetSourceModuleCount ()),
-  m_constValue (DEFAULT_CONST_VALUE)
+namespace module {
+
+Const::Const()
+    : Module(GetSourceModuleCount())
+    , m_constValue(DEFAULT_CONST_VALUE)
 {
 }
+
+} // namespace module
+
+} // namespace noise

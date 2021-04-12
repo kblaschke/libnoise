@@ -20,132 +20,127 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_MODULE_SCALEBIAS_H
-#define NOISE_MODULE_SCALEBIAS_H
+#pragma once
 
 #include "noise/module/modulebase.h"
 
-namespace noise
+namespace noise {
+
+namespace module {
+
+/// @addtogroup libnoise
+/// @{
+
+/// @addtogroup modules
+/// @{
+
+/// @addtogroup modifiermodules
+/// @{
+
+/// Default bias for the noise::module::ScaleBias noise module.
+const double DEFAULT_BIAS = 0.0;
+
+/// Default scale for the noise::module::ScaleBias noise module.
+const double DEFAULT_SCALE = 1.0;
+
+/// Noise module that applies a scaling factor and a bias to the output
+/// value from a source module.
+///
+/// @image html modulescalebias.png
+///
+/// The GetValue() method retrieves the output value from the source
+/// module, multiplies it with a scaling factor, adds a bias to it, then
+/// outputs the value.
+///
+/// This noise module requires one source module.
+class ScaleBias : public Module
 {
 
-  namespace module
-  {
+public:
 
-    /// @addtogroup libnoise
-    /// @{
-
-    /// @addtogroup modules
-    /// @{
-
-    /// @addtogroup modifiermodules
-    /// @{
-
-    /// Default bias for the noise::module::ScaleBias noise module.
-    const double DEFAULT_BIAS = 0.0;
-
-    /// Default scale for the noise::module::ScaleBias noise module.
-    const double DEFAULT_SCALE = 1.0;
-
-    /// Noise module that applies a scaling factor and a bias to the output
-    /// value from a source module.
+    /// Constructor.
     ///
-    /// @image html modulescalebias.png
+    /// The default bias is set to noise::module::DEFAULT_BIAS.
+    ///
+    /// The default scaling factor is set to noise::module::DEFAULT_SCALE.
+    ScaleBias();
+
+    /// Returns the bias to apply to the scaled output value from the
+    /// source module.
+    ///
+    /// @returns The bias to apply.
     ///
     /// The GetValue() method retrieves the output value from the source
-    /// module, multiplies it with a scaling factor, adds a bias to it, then
-    /// outputs the value.
-    ///
-    /// This noise module requires one source module.
-    class ScaleBias: public Module
+    /// module, multiplies it with the scaling factor, adds the bias to
+    /// it, then outputs the value.
+    double GetBias() const
     {
+        return m_bias;
+    }
 
-      public:
+    /// Returns the scaling factor to apply to the output value from the
+    /// source module.
+    ///
+    /// @returns The scaling factor to apply.
+    ///
+    /// The GetValue() method retrieves the output value from the source
+    /// module, multiplies it with the scaling factor, adds the bias to
+    /// it, then outputs the value.
+    double GetScale() const
+    {
+        return m_scale;
+    }
 
-        /// Constructor.
-        ///
-        /// The default bias is set to noise::module::DEFAULT_BIAS.
-        ///
-        /// The default scaling factor is set to noise::module::DEFAULT_SCALE.
-        ScaleBias ();
+    virtual int GetSourceModuleCount() const
+    {
+        return 1;
+    }
 
-        /// Returns the bias to apply to the scaled output value from the
-        /// source module.
-        ///
-        /// @returns The bias to apply.
-        ///
-        /// The GetValue() method retrieves the output value from the source
-        /// module, multiplies it with the scaling factor, adds the bias to
-        /// it, then outputs the value.
-        double GetBias () const
-        {
-          return m_bias;
-        }
+    virtual double GetValue(double x, double y, double z) const;
 
-        /// Returns the scaling factor to apply to the output value from the
-        /// source module.
-        ///
-        /// @returns The scaling factor to apply.
-        ///
-        /// The GetValue() method retrieves the output value from the source
-        /// module, multiplies it with the scaling factor, adds the bias to
-        /// it, then outputs the value.
-        double GetScale () const
-        {
-          return m_scale;
-        }
+    /// Sets the bias to apply to the scaled output value from the source
+    /// module.
+    ///
+    /// @param bias The bias to apply.
+    ///
+    /// The GetValue() method retrieves the output value from the source
+    /// module, multiplies it with the scaling factor, adds the bias to
+    /// it, then outputs the value.
+    void SetBias(double bias)
+    {
+        m_bias = bias;
+    }
 
-        virtual int GetSourceModuleCount () const
-        {
-          return 1;
-        }
+    /// Sets the scaling factor to apply to the output value from the
+    /// source module.
+    ///
+    /// @param scale The scaling factor to apply.
+    ///
+    /// The GetValue() method retrieves the output value from the source
+    /// module, multiplies it with the scaling factor, adds the bias to
+    /// it, then outputs the value.
+    void SetScale(double scale)
+    {
+        m_scale = scale;
+    }
 
-        virtual double GetValue (double x, double y, double z) const;
+protected:
 
-        /// Sets the bias to apply to the scaled output value from the source
-        /// module.
-        ///
-        /// @param bias The bias to apply.
-        ///
-        /// The GetValue() method retrieves the output value from the source
-        /// module, multiplies it with the scaling factor, adds the bias to
-        /// it, then outputs the value.
-        void SetBias (double bias)
-        {
-          m_bias = bias;
-        }
+    /// Bias to apply to the scaled output value from the source module.
+    double m_bias;
 
-        /// Sets the scaling factor to apply to the output value from the
-        /// source module.
-        ///
-        /// @param scale The scaling factor to apply.
-        ///
-        /// The GetValue() method retrieves the output value from the source
-        /// module, multiplies it with the scaling factor, adds the bias to
-        /// it, then outputs the value.
-        void SetScale (double scale)
-        {
-          m_scale = scale;
-        }
+    /// Scaling factor to apply to the output value from the source
+    /// module.
+    double m_scale;
 
-      protected:
+};
 
-        /// Bias to apply to the scaled output value from the source module.
-        double m_bias;
+/// @}
 
-        /// Scaling factor to apply to the output value from the source
-        /// module.
-        double m_scale;
+/// @}
 
-    };
+/// @}
 
-    /// @}
+} // namespace module
 
-    /// @}
-
-    /// @}
-
-  }
-
-}
-
-#endif
+} // namespace noise

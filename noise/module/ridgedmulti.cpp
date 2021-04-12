@@ -22,93 +22,103 @@
 
 #include "noise/module/ridgedmulti.h"
 
-using namespace noise::module;
+namespace noise {
 
-RidgedMulti::RidgedMulti ():
-  Module (GetSourceModuleCount ()),
-  m_frequency    (DEFAULT_RIDGED_FREQUENCY   ),
-  m_lacunarity   (DEFAULT_RIDGED_LACUNARITY  ),
-  m_noiseQuality (DEFAULT_RIDGED_QUALITY     ),
-  m_octaveCount  (DEFAULT_RIDGED_OCTAVE_COUNT),
-  m_seed         (DEFAULT_RIDGED_SEED)
+namespace module {
+
+RidgedMulti::RidgedMulti()
+    : Module(GetSourceModuleCount())
+    , m_frequency(DEFAULT_RIDGED_FREQUENCY)
+    , m_lacunarity(DEFAULT_RIDGED_LACUNARITY)
+    , m_noiseQuality(DEFAULT_RIDGED_QUALITY)
+    , m_octaveCount(DEFAULT_RIDGED_OCTAVE_COUNT)
+    , m_seed(DEFAULT_RIDGED_SEED)
 {
-  CalcSpectralWeights ();
+    CalcSpectralWeights();
 }
 
 // Calculates the spectral weights for each octave.
-void RidgedMulti::CalcSpectralWeights ()
+void RidgedMulti::CalcSpectralWeights()
 {
-  // This exponent parameter should be user-defined; it may be exposed in a
-  // future version of libnoise.
-  double h = 1.0;
+    // This exponent parameter should be user-defined; it may be exposed in a
+    // future version of libnoise.
+    double h = 1.0;
 
-  double frequency = 1.0;
-  for (int i = 0; i < RIDGED_MAX_OCTAVE; i++) {
-    // Compute weight for each frequency.
-    m_pSpectralWeights[i] = pow (frequency, -h);
-    frequency *= m_lacunarity;
-  }
+    double frequency = 1.0;
+    for (int i = 0; i < RIDGED_MAX_OCTAVE; i++)
+    {
+        // Compute weight for each frequency.
+        m_pSpectralWeights[i] = pow(frequency, -h);
+        frequency *= m_lacunarity;
+    }
 }
 
 // Multifractal code originally written by F. Kenton "Doc Mojo" Musgrave,
 // 1998.  Modified by jas for use with libnoise.
-double RidgedMulti::GetValue (double x, double y, double z) const
+double RidgedMulti::GetValue(double x, double y, double z) const
 {
-  x *= m_frequency;
-  y *= m_frequency;
-  z *= m_frequency;
+    x *= m_frequency;
+    y *= m_frequency;
+    z *= m_frequency;
 
-  double signal = 0.0;
-  double value  = 0.0;
-  double weight = 1.0;
+    double signal = 0.0;
+    double value = 0.0;
+    double weight = 1.0;
 
-  // These parameters should be user-defined; they may be exposed in a
-  // future version of libnoise.
-  double offset = 1.0;
-  double gain = 2.0;
+    // These parameters should be user-defined; they may be exposed in a
+    // future version of libnoise.
+    double offset = 1.0;
+    double gain = 2.0;
 
-  for (int curOctave = 0; curOctave < m_octaveCount; curOctave++) {
+    for (int curOctave = 0; curOctave < m_octaveCount; curOctave++)
+    {
 
-    // Make sure that these floating-point values have the same range as a 32-
-    // bit integer so that we can pass them to the coherent-noise functions.
-    double nx, ny, nz;
-    nx = MakeInt32Range (x);
-    ny = MakeInt32Range (y);
-    nz = MakeInt32Range (z);
+        // Make sure that these floating-point values have the same range as a 32-
+        // bit integer so that we can pass them to the coherent-noise functions.
+        double nx, ny, nz;
+        nx = MakeInt32Range(x);
+        ny = MakeInt32Range(y);
+        nz = MakeInt32Range(z);
 
-    // Get the coherent-noise value.
-    int seed = (m_seed + curOctave) & 0x7fffffff;
-    signal = GradientCoherentNoise3D (nx, ny, nz, seed, m_noiseQuality);
+        // Get the coherent-noise value.
+        int seed = (m_seed + curOctave) & 0x7fffffff;
+        signal = GradientCoherentNoise3D(nx, ny, nz, seed, m_noiseQuality);
 
-    // Make the ridges.
-    signal = fabs (signal);
-    signal = offset - signal;
+        // Make the ridges.
+        signal = fabs(signal);
+        signal = offset - signal;
 
-    // Square the signal to increase the sharpness of the ridges.
-    signal *= signal;
+        // Square the signal to increase the sharpness of the ridges.
+        signal *= signal;
 
-    // The weighting from the previous octave is applied to the signal.
-    // Larger values have higher weights, producing sharp points along the
-    // ridges.
-    signal *= weight;
+        // The weighting from the previous octave is applied to the signal.
+        // Larger values have higher weights, producing sharp points along the
+        // ridges.
+        signal *= weight;
 
-    // Weight successive contributions by the previous signal.
-    weight = signal * gain;
-    if (weight > 1.0) {
-      weight = 1.0;
+        // Weight successive contributions by the previous signal.
+        weight = signal * gain;
+        if (weight > 1.0)
+        {
+            weight = 1.0;
+        }
+        if (weight < 0.0)
+        {
+            weight = 0.0;
+        }
+
+        // Add the signal to the output value.
+        value += (signal * m_pSpectralWeights[curOctave]);
+
+        // Go to the next octave.
+        x *= m_lacunarity;
+        y *= m_lacunarity;
+        z *= m_lacunarity;
     }
-    if (weight < 0.0) {
-      weight = 0.0;
-    }
 
-    // Add the signal to the output value.
-    value += (signal * m_pSpectralWeights[curOctave]);
-
-    // Go to the next octave.
-    x *= m_lacunarity;
-    y *= m_lacunarity;
-    z *= m_lacunarity;
-  }
-
-  return (value * 1.25) - 1.0;
+    return (value * 1.25) - 1.0;
 }
+
+} // namespace module
+
+} // namespace noise

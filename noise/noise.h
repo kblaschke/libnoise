@@ -20,8 +20,7 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_H
-#define NOISE_H
+#pragma once
 
 /// @mainpage libnoise
 ///
@@ -70,5 +69,3 @@
 #include "module/module.h"
 #include "model/model.h"
 #include "misc.h"
-
-#endif

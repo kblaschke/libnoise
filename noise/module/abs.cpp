@@ -22,16 +22,22 @@
 
 #include "noise/module/abs.h"
 
-using namespace noise::module;
+namespace noise {
 
-Abs::Abs ():
-  Module (GetSourceModuleCount ())
+namespace module {
+
+Abs::Abs()
+    : Module(GetSourceModuleCount())
 {
 }
 
-double Abs::GetValue (double x, double y, double z) const
+double Abs::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[0] != NULL);
 
-  return fabs (m_pSourceModule[0]->GetValue (x, y, z));
+    return fabs(m_pSourceModule[0]->GetValue(x, y, z));
 }
+
+} // namespace module
+
+} // namespace noise

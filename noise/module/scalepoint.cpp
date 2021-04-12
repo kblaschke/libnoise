@@ -22,20 +22,26 @@
 
 #include "noise/module/scalepoint.h"
 
-using namespace noise::module;
+namespace noise {
 
-ScalePoint::ScalePoint ():
-  Module (GetSourceModuleCount ()),
-  m_xScale (DEFAULT_SCALE_POINT_X),
-  m_yScale (DEFAULT_SCALE_POINT_Y),
-  m_zScale (DEFAULT_SCALE_POINT_Z)
+namespace module {
+
+ScalePoint::ScalePoint()
+    : Module(GetSourceModuleCount())
+    , m_xScale(DEFAULT_SCALE_POINT_X)
+    , m_yScale(DEFAULT_SCALE_POINT_Y)
+    , m_zScale(DEFAULT_SCALE_POINT_Z)
 {
 }
 
-double ScalePoint::GetValue (double x, double y, double z) const
+double ScalePoint::GetValue(double x, double y, double z) const
 {
-  assert (m_pSourceModule[0] != NULL);
+    assert(m_pSourceModule[0] != NULL);
 
-  return m_pSourceModule[0]->GetValue (x * m_xScale, y * m_yScale,
-    z * m_zScale);
+    return m_pSourceModule[0]->GetValue(x * m_xScale, y * m_yScale,
+                                        z * m_zScale);
 }
+
+} // namespace module
+
+} // namespace noise

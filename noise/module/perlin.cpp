@@ -22,51 +22,58 @@
 
 #include "noise/module/perlin.h"
 
-using namespace noise::module;
+namespace noise {
 
-Perlin::Perlin ():
-  Module (GetSourceModuleCount ()),
-  m_frequency    (DEFAULT_PERLIN_FREQUENCY   ),
-  m_lacunarity   (DEFAULT_PERLIN_LACUNARITY  ),
-  m_noiseQuality (DEFAULT_PERLIN_QUALITY     ),
-  m_octaveCount  (DEFAULT_PERLIN_OCTAVE_COUNT),
-  m_persistence  (DEFAULT_PERLIN_PERSISTENCE ),
-  m_seed         (DEFAULT_PERLIN_SEED)
+namespace module {
+
+Perlin::Perlin()
+    : Module(GetSourceModuleCount())
+    , m_frequency(DEFAULT_PERLIN_FREQUENCY)
+    , m_lacunarity(DEFAULT_PERLIN_LACUNARITY)
+    , m_noiseQuality(DEFAULT_PERLIN_QUALITY)
+    , m_octaveCount(DEFAULT_PERLIN_OCTAVE_COUNT)
+    , m_persistence(DEFAULT_PERLIN_PERSISTENCE)
+    , m_seed(DEFAULT_PERLIN_SEED)
 {
 }
 
-double Perlin::GetValue (double x, double y, double z) const
+double Perlin::GetValue(double x, double y, double z) const
 {
-  double value = 0.0;
-  double signal = 0.0;
-  double curPersistence = 1.0;
-  double nx, ny, nz;
-  int seed;
+    double value = 0.0;
+    double signal = 0.0;
+    double curPersistence = 1.0;
+    double nx, ny, nz;
+    int seed;
 
-  x *= m_frequency;
-  y *= m_frequency;
-  z *= m_frequency;
+    x *= m_frequency;
+    y *= m_frequency;
+    z *= m_frequency;
 
-  for (int curOctave = 0; curOctave < m_octaveCount; curOctave++) {
+    for (int curOctave = 0; curOctave < m_octaveCount; curOctave++)
+    {
 
-    // Make sure that these floating-point values have the same range as a 32-
-    // bit integer so that we can pass them to the coherent-noise functions.
-    nx = MakeInt32Range (x);
-    ny = MakeInt32Range (y);
-    nz = MakeInt32Range (z);
+        // Make sure that these floating-point values have the same range as a 32-
+        // bit integer so that we can pass them to the coherent-noise functions.
+        nx = MakeInt32Range(x);
+        ny = MakeInt32Range(y);
+        nz = MakeInt32Range(z);
 
-    // Get the coherent-noise value from the input value and add it to the
-    // final result.
-    seed = (m_seed + curOctave) & 0xffffffff;
-    signal = GradientCoherentNoise3D (nx, ny, nz, seed, m_noiseQuality);
-    value += signal * curPersistence;
+        // Get the coherent-noise value from the input value and add it to the
+        // final result.
+        seed = (m_seed + curOctave) & 0xffffffff;
+        signal = GradientCoherentNoise3D(nx, ny, nz, seed, m_noiseQuality);
+        value += signal * curPersistence;
 
-    // Prepare the next octave.
-    x *= m_lacunarity;
-    y *= m_lacunarity;
-    z *= m_lacunarity;
-    curPersistence *= m_persistence;
-  }
+        // Prepare the next octave.
+        x *= m_lacunarity;
+        y *= m_lacunarity;
+        z *= m_lacunarity;
+        curPersistence *= m_persistence;
+    }
 
-  return value;
+    return value;
 }
+
+} // namespace module
+
+} // namespace noise

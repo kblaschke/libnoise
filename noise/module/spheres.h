@@ -20,108 +20,103 @@
 // off every 'zig'.)
 //
 
-#ifndef NOISE_MODULE_SPHERES_H
-#define NOISE_MODULE_SPHERES_H
+#pragma once
 
 #include "noise/module/modulebase.h"
 
-namespace noise
+namespace noise {
+
+namespace module {
+
+/// @addtogroup libnoise
+/// @{
+
+/// @addtogroup modules
+/// @{
+
+/// @addtogroup generatormodules
+/// @{
+
+/// Default frequency value for the noise::module::Spheres noise module.
+const double DEFAULT_SPHERES_FREQUENCY = 1.0;
+
+/// Noise module that outputs concentric spheres.
+///
+/// @image html modulespheres.png
+///
+/// This noise module outputs concentric spheres centered on the origin
+/// like the concentric rings of an onion.
+///
+/// The first sphere has a radius of 1.0.  Each subsequent sphere has a
+/// radius that is 1.0 unit larger than the previous sphere.
+///
+/// The output value from this noise module is determined by the distance
+/// between the input value and the the nearest spherical surface.  The
+/// input values that are located on a spherical surface are given the
+/// output value 1.0 and the input values that are equidistant from two
+/// spherical surfaces are given the output value -1.0.
+///
+/// An application can change the frequency of the concentric spheres.
+/// Increasing the frequency reduces the distances between spheres.  To
+/// specify the frequency, call the SetFrequency() method.
+///
+/// This noise module, modified with some low-frequency, low-power
+/// turbulence, is useful for generating agate-like textures.
+///
+/// This noise module does not require any source modules.
+class Spheres : public Module
 {
 
-  namespace module
-  {
+public:
 
-    /// @addtogroup libnoise
-    /// @{
+    /// Constructor.
+    ///
+    /// The default frequency is set to
+    /// noise::module::DEFAULT_SPHERES_FREQUENCY.
+    Spheres();
 
-    /// @addtogroup modules
-    /// @{
-
-    /// @addtogroup generatormodules
-    /// @{
-
-    /// Default frequency value for the noise::module::Spheres noise module.
-    const double DEFAULT_SPHERES_FREQUENCY = 1.0;
-
-    /// Noise module that outputs concentric spheres.
+    /// Returns the frequency of the concentric spheres.
     ///
-    /// @image html modulespheres.png
+    /// @returns The frequency of the concentric spheres.
     ///
-    /// This noise module outputs concentric spheres centered on the origin
-    /// like the concentric rings of an onion.
-    ///
-    /// The first sphere has a radius of 1.0.  Each subsequent sphere has a
-    /// radius that is 1.0 unit larger than the previous sphere.
-    ///
-    /// The output value from this noise module is determined by the distance
-    /// between the input value and the the nearest spherical surface.  The
-    /// input values that are located on a spherical surface are given the
-    /// output value 1.0 and the input values that are equidistant from two
-    /// spherical surfaces are given the output value -1.0.
-    ///
-    /// An application can change the frequency of the concentric spheres.
-    /// Increasing the frequency reduces the distances between spheres.  To
-    /// specify the frequency, call the SetFrequency() method.
-    ///
-    /// This noise module, modified with some low-frequency, low-power
-    /// turbulence, is useful for generating agate-like textures.
-    ///
-    /// This noise module does not require any source modules.    
-    class Spheres: public Module
+    /// Increasing the frequency increases the density of the concentric
+    /// spheres, reducing the distances between them.
+    double GetFrequency() const
     {
+        return m_frequency;
+    }
 
-      public:
+    virtual int GetSourceModuleCount() const
+    {
+        return 0;
+    }
 
-        /// Constructor.
-        ///
-        /// The default frequency is set to
-        /// noise::module::DEFAULT_SPHERES_FREQUENCY.
-        Spheres ();
+    virtual double GetValue(double x, double y, double z) const;
 
-        /// Returns the frequency of the concentric spheres.
-        ///
-        /// @returns The frequency of the concentric spheres.
-        ///
-        /// Increasing the frequency increases the density of the concentric
-        /// spheres, reducing the distances between them.
-        double GetFrequency () const
-        {
-          return m_frequency;
-        }
+    /// Sets the frequenct of the concentric spheres.
+    ///
+    /// @param frequency The frequency of the concentric spheres.
+    ///
+    /// Increasing the frequency increases the density of the concentric
+    /// spheres, reducing the distances between them.
+    void SetFrequency(double frequency)
+    {
+        m_frequency = frequency;
+    }
 
-        virtual int GetSourceModuleCount () const
-        {
-          return 0;
-        }
+protected:
 
-        virtual double GetValue (double x, double y, double z) const;
+    /// Frequency of the concentric spheres.
+    double m_frequency;
 
-        /// Sets the frequenct of the concentric spheres.
-        ///
-        /// @param frequency The frequency of the concentric spheres.
-        ///
-        /// Increasing the frequency increases the density of the concentric
-        /// spheres, reducing the distances between them.
-        void SetFrequency (double frequency)
-        {
-          m_frequency = frequency;
-        }
+};
 
-      protected:
+/// @}
 
-        /// Frequency of the concentric spheres.
-        double m_frequency;
+/// @}
 
-    };
+/// @}
 
-    /// @}
+} // namespace module
 
-    /// @}
-
-    /// @}
-
-  }
-
-}
-
-#endif
+} // namespace noise
