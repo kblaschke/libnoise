@@ -23,9 +23,9 @@
 #ifndef NOISE_MODEL_H
 #define NOISE_MODEL_H
 
-#include "cylinder.h"
-#include "line.h"
-#include "plane.h"
-#include "sphere.h"
+#include "noise/model/cylinder.h"
+#include "noise/model/line.h"
+#include "noise/model/plane.h"
+#include "noise/model/sphere.h"
 
 #endif

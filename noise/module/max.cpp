@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../misc.h"
-#include "max.h"
+#include "noise/misc.h"
+#include "noise/module/max.h"
 
 using namespace noise::module;
 

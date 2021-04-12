@@ -23,7 +23,7 @@
 #ifndef NOISE_MODULE_TURBULENCE_H
 #define NOISE_MODULE_TURBULENCE_H
 
-#include "perlin.h"
+#include "noise/module/perlin.h"
 
 namespace noise
 {

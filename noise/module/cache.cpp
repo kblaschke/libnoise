@@ -20,7 +20,7 @@
 // off every 'zig'.)
 //
 
-#include "cache.h"
+#include "noise/module/cache.h"
 
 using namespace noise::module;
 

@@ -56,6 +56,12 @@ add_library(libnoise_static STATIC
         $<TARGET_OBJECTS:libnoise_module>
         )
 
+target_include_directories(libnoise_static
+        PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${PACKAGE_INCLUDE_INSTALL_DIR}>
+        )
+
 set_target_properties(libnoise_static PROPERTIES
         OUTPUT_NAME "noise"
         INTERFACE_libnoise_static_MAJOR_VERSION 0

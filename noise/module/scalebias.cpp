@@ -20,7 +20,7 @@
 // off every 'zig'.)
 //
 
-#include "scalebias.h"
+#include "noise/module/scalebias.h"
 
 using namespace noise::module;
 

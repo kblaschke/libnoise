@@ -23,7 +23,7 @@
 #ifndef NOISE_MODULE_DISPLACE_H
 #define NOISE_MODULE_DISPLACE_H
 
-#include "modulebase.h"
+#include "noise/module/modulebase.h"
 
 namespace noise
 {

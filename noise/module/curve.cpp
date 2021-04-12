@@ -20,9 +20,9 @@
 // off every 'zig'.)
 //
 
-#include "../interp.h"
-#include "../misc.h"
-#include "curve.h"
+#include "noise/interp.h"
+#include "noise/misc.h"
+#include "noise/module/curve.h"
 
 using namespace noise::module;
 

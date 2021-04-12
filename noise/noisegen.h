@@ -24,7 +24,7 @@
 #define NOISE_NOISEGEN_H
 
 #include <math.h>
-#include "basictypes.h"
+#include "noise/basictypes.h"
 
 namespace noise
 {

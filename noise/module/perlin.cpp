@@ -20,7 +20,7 @@
 // off every 'zig'.)
 //
 
-#include "perlin.h"
+#include "noise/module/perlin.h"
 
 using namespace noise::module;
 

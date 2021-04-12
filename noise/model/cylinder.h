@@ -26,7 +26,7 @@
 #include <assert.h>
 #include <math.h>
 #include <stdlib.h>
-#include "../module/modulebase.h"
+#include "noise/module/modulebase.h"
 
 namespace noise
 {

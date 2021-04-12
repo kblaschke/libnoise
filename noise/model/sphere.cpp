@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../latlon.h"
-#include "sphere.h"
+#include "noise/latlon.h"
+#include "noise/model/sphere.h"
 
 using namespace noise;
 using namespace noise::model;

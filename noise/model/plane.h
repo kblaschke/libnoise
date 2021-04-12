@@ -23,7 +23,7 @@
 #define NOISE_MODEL_PLANE_H
 
 #include <assert.h>
-#include "../module/modulebase.h"
+#include "noise/module/modulebase.h"
 
 namespace noise
 {

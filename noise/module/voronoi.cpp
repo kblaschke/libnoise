@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../mathconsts.h"
-#include "voronoi.h"
+#include "noise/mathconsts.h"
+#include "noise/module/voronoi.h"
 
 using namespace noise::module;
 

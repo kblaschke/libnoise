@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "blend.h"
-#include "../interp.h"
+#include "noise/module/blend.h"
+#include "noise/interp.h"
 
 using namespace noise::module;
 

@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../mathconsts.h"
-#include "cylinder.h"
+#include "noise/mathconsts.h"
+#include "noise/model/cylinder.h"
 
 using namespace noise;
 using namespace noise::model;

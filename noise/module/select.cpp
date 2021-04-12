@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../interp.h"
-#include "select.h"
+#include "noise/interp.h"
+#include "noise/module/select.h"
 
 using namespace noise::module;
 

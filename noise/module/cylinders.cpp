@@ -20,8 +20,8 @@
 // off every 'zig'.)
 //
 
-#include "../misc.h"
-#include "cylinders.h"
+#include "noise/misc.h"
+#include "noise/module/cylinders.h"
 
 using namespace noise::module;
 

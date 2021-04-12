@@ -24,7 +24,7 @@
 #define NOISE_MODEL_SPHERE_H
 
 #include <assert.h>
-#include "../module/modulebase.h"
+#include "noise/module/modulebase.h"
 
 namespace noise
 {
