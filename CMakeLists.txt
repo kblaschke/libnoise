@@ -21,6 +21,10 @@ set(NOISE_SO_VERSION "0.3")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+include(CheckLibraryExists)
+
+check_library_exists(m sin "" HAVE_LIB_M)
+
 add_subdirectory(noise)
 add_subdirectory(doc)
 
@@ -48,6 +52,13 @@ set_target_properties(libnoise_shared PROPERTIES
         EXPORT_NAME shared
         )
 
+if(HAVE_LIB_M)
+    target_link_libraries(libnoise_shared
+            INTERFACE
+            m
+            )
+endif(HAVE_LIB_M)
+
 
 # Static library (.a or .lib)
 add_library(libnoise_static STATIC
@@ -70,6 +81,13 @@ set_target_properties(libnoise_static PROPERTIES
         EXPORT_NAME static
         )
 
+if(HAVE_LIB_M)
+    target_link_libraries(libnoise_static
+            INTERFACE
+            m
+            )
+endif(HAVE_LIB_M)
+
 
 ### Installation
 
@@ -88,8 +106,8 @@ install(DIRECTORY noise/
         DESTINATION "${PACKAGE_INCLUDE_INSTALL_DIR}/noise"
         COMPONENT Develop
         FILES_MATCHING
-            PATTERN "*.h"
-            PATTERN "*/win32" EXCLUDE
+        PATTERN "*.h"
+        PATTERN "*/win32" EXCLUDE
         )
 
 
@@ -100,7 +118,7 @@ configure_package_config_file(cmake/NoiseConfig.cmake.in
         "${CMAKE_CURRENT_BINARY_DIR}/Noise/NoiseConfig.cmake"
         INSTALL_DESTINATION "${PACKAGE_CONFIG_INSTALL_DIR}"
         PATH_VARS PACKAGE_INCLUDE_INSTALL_DIR
-)
+        )
 
 write_basic_package_version_file(
         "${CMAKE_CURRENT_BINARY_DIR}/Noise/NoiseConfigVersion.cmake"
