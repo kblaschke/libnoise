@@ -25,3 +25,10 @@ add_custom_target(doc ALL
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html/
         DESTINATION "${PACKAGE_DOCS_INSTALL_DIR}"
         )
+
+install(FILES
+        htmldata/background.png
+        htmldata/libnoise.png
+        htmldata/doxygen.css
+        DESTINATION "${PACKAGE_DOCS_INSTALL_DIR}"
+        )
