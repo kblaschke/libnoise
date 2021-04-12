@@ -6,7 +6,8 @@ set(PACKAGE_INCLUDE_INSTALL_DIR "include")
 set(PACKAGE_LIBRARY_INSTALL_DIR "lib")
 set(PACKAGE_CONFIG_INSTALL_DIR "${PACKAGE_LIBRARY_INSTALL_DIR}/Noise/cmake")
 
-option(BUILD_DOC ON "Build and install Doxygen documentation")
+option(BUILD_DOC OFF "Build and install Doxygen documentation")
+option(BUILD_EXAMPLES OFF "Build and install example programs")
 option(ENABLE_TESTING OFF "Build unit tests. Requires the googletest library.")
 
 project(libnoise
@@ -26,8 +27,6 @@ include(CheckLibraryExists)
 check_library_exists(m sin "" HAVE_LIB_M)
 
 add_subdirectory(noise)
-add_subdirectory(doc)
-
 
 ### Build targets
 
@@ -87,6 +86,14 @@ if(HAVE_LIB_M)
             m
             )
 endif(HAVE_LIB_M)
+
+if(BUILD_DOC)
+    add_subdirectory(doc)
+endif()
+
+if(BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
 
 
 ### Installation
