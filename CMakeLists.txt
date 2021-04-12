@@ -21,7 +21,7 @@ set(NOISE_SO_VERSION "0.3")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-add_subdirectory(src)
+add_subdirectory(noise)
 add_subdirectory(doc)
 
 
@@ -78,7 +78,7 @@ install(TARGETS libnoise_shared libnoise_static
         )
 
 # Header structure
-install(DIRECTORY src/
+install(DIRECTORY noise/
         DESTINATION "${PACKAGE_INCLUDE_INSTALL_DIR}/noise"
         COMPONENT Develop
         FILES_MATCHING
